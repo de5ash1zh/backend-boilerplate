@@ -19,8 +19,12 @@ app.use(express.json()); // configuring backend that it accepts data in JSON for
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;
 
-app.get("/", (req, res) => {
+app.get("/hitsh", (req, res) => {
   res.send("hii");
+});
+
+app.get("/piyush", (req, res) => {
+  res.send("piyush"); // this callback -> functionality is being controlled -> called a controller
 });
 //connect to DB
 db();

@@ -111,3 +111,7 @@ Where will you save your Data -> in Database
 
 MONGODB se baat krne ke liye hum mongoose use karenge -> mongoose mere liye baat karega database se
 hume jo bhi kaam hai database se vo mongoose karwayega -> mongoose technically resides in backend
+
+app.get("/piyush", (req, res) => {
+res.send("piyush"); // this callback -> functionality is being controlled -> called a controller
+});
