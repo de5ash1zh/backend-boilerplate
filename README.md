@@ -115,3 +115,51 @@ hume jo bhi kaam hai database se vo mongoose karwayega -> mongoose technically r
 app.get("/piyush", (req, res) => {
 res.send("piyush"); // this callback -> functionality is being controlled -> called a controller
 });
+
+IMPLEMENTATION TILL HERE:
+Project Initialization
+A package.json file was created with the following dependencies:
+express for building the server.
+mongoose for interacting with MongoDB.
+dotenv for environment variable management.
+cors for handling Cross-Origin Resource Sharing.
+A start script was added to run the server using nodemon. 2. Environment Configuration
+.env file was created to store sensitive information like:
+PORT for the server port.
+MONGO_URL for the MongoDB connection string.
+BASE_URL for the frontend URL.
+.env.sample was added as a template for environment variables. 3. Database Connection
+A utility function db was created in db.js to connect to MongoDB using mongoose.
+The function logs a success or error message based on the connection status. 4. Model Definition
+A User model was defined in User.model.js using mongoose.Schema with fields:
+name, email, password, role, isVerified, verificationToken, resetPasswordToken, and resetPasswordExpires.
+timestamps were enabled to automatically add createdAt and updatedAt fields. 5. Controller Implementation
+A registerUser function was created in user.controller.js to handle user registration. Currently, it sends a simple "registered" response. 6. Routing
+A user.routes.js file was created to define routes for user-related operations.
+The /register route was mapped to the registerUser controller. 7. Server Setup
+The main server file index.js was created:
+Imported necessary modules (express, dotenv, cors, db, and routes).
+Configured middleware:
+cors for handling CORS with dynamic origin from .env.
+express.json() and express.urlencoded() for parsing JSON and URL-encoded data.
+Connected to the database using the db utility.
+Defined some test routes (/hitsh and /piyush).
+Mounted user routes under /api/v1/users/.
+Started the server on the specified PORT. 8. README Documentation
+A README.md file was created with:
+Instructions for setting up CORS in Express.
+Explanation of handling JSON and URL-encoded data in Express.
+Notes on backend and database interaction using mongoose.
+This structure provides a clean and modular backend setup, with clear separation of concerns between models, controllers, routes, and utilities. Let me know if you'd like to dive deeper into any specific part!
+
+req is an object in itself-> iske aage dot operator lagaoge to bahut methods milenge
+one of them is body:
+backend ko data milta kaha se hai:
+query params
+body
+cookies....
+query and body are main imp
+req. body me sab data hai
+destructure krdo
+
+data ya to body se loge ya to url se

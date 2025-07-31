@@ -3,8 +3,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 import db from "./utils/db.js";
 
+//import all routes
+import userRoutes from "./routes/user.routes.js";
 dotenv.config();
 const app = express();
+app.use(express.json());
+
 // console.log(process.env);
 app.use(
   cors({
@@ -28,6 +32,12 @@ app.get("/piyush", (req, res) => {
 });
 //connect to DB
 db();
+
+//user routes
+app.use("/api/v1/users/", userRoutes);
+///api/v1/users/ -> iss route ke baad kuch bhi aaya to transfer kar diya jayega userRoutes ko
+///api/v1/users/ -> agar ye pattern match huye to iske baad aage kuch bhi ho it will be handled by userRoutes
+
 app.listen(PORT, () => {
   console.log(`Your app is listening on port: ${PORT}`);
 });
