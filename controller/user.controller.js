@@ -6,6 +6,8 @@ import nodemailer from "nodemailer";
 
 // Importing crypto to generate secure random tokens
 import crypto from "crypto";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // Main function to register a new user
 const registerUser = async (req, res) => {
@@ -121,4 +123,49 @@ user.isVerified = true;
 user.verificationToken = undefined;
 await user.save();
 
-export { registerUser, verifyUser };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "All fields are required",
+    });
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+
+    const token = jwt.sign({ id: user._id, role: user.role }, "shhhhhhh", {
+      expiresIn: "24h",
+    });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    };
+    res.cookie("test", token, cookieOptions);
+    res.status(200).json({
+      success: true,
+      message: "Login successfull",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        role: user.role,
+      },
+    });
+  } catch (error) {}
+};
+
+export { registerUser, verifyUser, login };

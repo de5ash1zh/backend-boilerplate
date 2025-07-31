@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema(
   {
     name: String,
@@ -21,6 +22,13 @@ const userSchema = new mongoose.Schema(
     timestamps: true, // adds createdAt and updatedAt
   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10); // add salt rounds
+  }
+  next();
+}); //jab bhi password field touch hogi to ye chalega
 
 //this schema can have one more object, usme one of the properties is timestamps -? when you set it to true -> mongoose adds two more fields- createdAt. updatedAt to your schema
 

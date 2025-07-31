@@ -163,3 +163,8 @@ req. body me sab data hai
 destructure krdo
 
 data ya to body se loge ya to url se
+
+save operation on db
+something called pre-save,post-save -> ye humari ek script hai jo save se pehle aur ek save hone ke baad chalegi
+this is called hook
+jab bhi ye pre ya post wala kaam ho jaaye har haal me har hook ko ek next() return karna hii padega
